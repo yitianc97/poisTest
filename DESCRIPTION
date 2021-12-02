@@ -1,0 +1,22 @@
+Package: pois.exact.test
+Type: Package
+Title: Exact Poisson Test
+Version: 0.1.0
+Author: Yitian Cai
+Maintainer: Yitian Cai <yitianc@umich.edu>
+Description: To perform an exact test of a simple null hypothesis about the
+    rate parameter in Poisson distribution, or for the ratio between two rate parameters.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
+Suggests: 
+    rmarkdown,
+    knitr,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+LinkingTo: 
+    Rcpp
+Imports: 
+    Rcpp
