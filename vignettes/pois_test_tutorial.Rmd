@@ -87,7 +87,7 @@ To view a confidence interval for the rate or rate ratio:
 result_pois_greater$conf.int
 ```
 
-To view the the estimated rate or rate ratio:
+To view the estimated rate or rate ratio:
 
 ```{r}
 result_pois_less$estimate
