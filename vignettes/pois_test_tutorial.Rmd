@@ -135,6 +135,7 @@ for (i in 1:5) {
 bench mark efficiency check with original `poission.test` function:
 
 ```{r fig1, fig.height = 3, fig.width = 7}
+library(bench)
 x = sample(1:1000000, 1)
 T = sample(1000:9999999, 1)
 x2 = sample(1:1000000, 1)
