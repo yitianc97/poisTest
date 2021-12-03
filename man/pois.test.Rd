@@ -33,5 +33,6 @@ rate parameter in Poisson distribution, or for the ratio between two rate parame
 \examples{
 pois.test(100, 25)
 pois.test(c(11,20),c(800, 3000))
+pois.test(100, 25, alternative = "less", conf.level = 0.9)
 
 }

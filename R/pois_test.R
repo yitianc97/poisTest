@@ -15,10 +15,10 @@
 #'@examples
 #'pois.test(100, 25)
 #'pois.test(c(11,20),c(800, 3000))
+#'pois.test(100, 25, alternative = "less", conf.level = 0.9)
 #'
 #'@export
 #'
-
 pois.test <- function(x, T = 1, r = 1, alternative =
                            c("two.sided", "less", "greater"),
                          conf.level = 0.95)
