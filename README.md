@@ -8,7 +8,7 @@
 
 ## Overview
 
-`pois.test` is an improved version of R function poisson.test(), whic is used to perform an exact test of a simple null hypothesis about the rate parameter in Poisson distribution, or for the ratio between two rate parameters. It is improved especially in the condition when there are two rate parameters. 
+This package provide a function for exact poisson test. `pois.test` is an improved version of R function poisson.test(), which is used to perform an exact test of a simple null hypothesis about the rate parameter in Poisson distribution, or for the ratio between two rate parameters. It is improved especially in the condition when there are two rate parameters. 
 
 It currently has one function:
 - `pois.test()` reads number of events `x`, time base for event count `T`, hypothesized rate or rate ratio 'r', alternative hypothesis `alternative`, confidence level for the returned confidence interval `conf.level`, and calculate a list of parameters of the exact poisson test. It also returns a summary of conclusion of the test.
@@ -90,5 +90,18 @@ result_pois = pois.test(x, T)
 #> sample estimates:
 #> rate ratio 
 #>       0.96 
+
+# Other examples:
+x = 100
+T = 25
+
+result_pois_greater = pois.test(x, T, alternative = "greater")
+
+result_pois_less = pois.test(x, T, alternative = "less")
+
+result_pois_90 = pois.test(x, T, conf.level = 0.9)
+
+result_pois_r_less_90 = pois.test(x, T, r=5, alternative = "less", conf.level = 0.9)
+
 ```
 
