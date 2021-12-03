@@ -12,3 +12,139 @@ knitr::opts_chunk$set(echo = TRUE)
 library(pois.exact.test)
 ```
 
+## 'pois.test'
+
+Simple example on how to use the function `pois.test`:
+
+```{r}
+x1 = 100
+T1 = 25
+result_pois1 = pois.test(x1, T1)
+
+x2 = c(10, 25)
+T2 = c(500, 1200)
+result_pois2 = pois.test(x2, T2)
+```
+
+The "pois.test" function performs an exact test of a simple null hypothesis about the rate parameter in Poisson distribution, or for the ratio between two rate parameters.
+
+Other than the main data parameters, x and T, other parameters that the function takes in include "r", "alternative", and "conf.level". "r = 1" by default, meaning that the hypothesized rate or rate ratio is 1. "conf.level = 0.95" by default, meaning that the confidence level for the returned confidence interval is 95%. 
+
+The following shows the different options for the same data:
+
+```{r}
+x = 100
+T = 25
+result_pois_two_sided = pois.test(x, T)
+result_pois_greater = pois.test(x, T, alternative = "greater")
+result_pois_less = pois.test(x, T, alternative = "less")
+result_pois_90 = pois.test(x, T, conf.level = 0.9)
+result_pois_less_90 = pois.test(x, T, alternative = "less", conf.level = 0.9)
+result_pois_r_less_90 = pois.test(x, T, r=5, alternative = "less", conf.level = 0.9)
+```
+
+This function works with numeric data only, for both x and T. Furthermore, x and T must have compatible length; x must be finite, nonnegative, and integer; T must be nonnegative; r must be a single positive number; conf.level must be a single number between 0 and 1. Otherwise, an error will be thrown, such as in the following:
+
+```{r}
+x = 10
+y = c(15, 9)
+```
+
+```{r}
+x = 12.5
+```
+
+```{r}
+x = -3
+```
+
+```{r}
+x = "12"
+```
+
+
+To view the number of events (in the first sample if there are two):
+
+```{r}
+result_pois_two_sided$statistic
+```
+
+To view the corresponding expected count:
+
+```{r}
+result_pois1$parameter
+```
+
+To view the p-value of the test:
+
+```{r}
+result_pois_90$p.value
+```
+
+To view a confidence interval for the rate or rate ratio:
+
+```{r}
+result_pois_greater$conf.int
+```
+
+To view the the estimated rate or rate ratio:
+
+```{r}
+result_pois_less$estimate
+```
+
+To view the rate or rate ratio under the null, r:
+
+```{r}
+result_pois_less_90$null.value
+```
+
+To view the alternative hypothesis:
+
+```{r}
+result_pois_r_less_90$alternative
+```
+
+To view the character string "Exact Poisson test" or "Comparison of Poisson rates" as appropriate:
+
+```{r}
+result_pois2$method
+```
+
+And finally, to view the names of the data:
+
+```{r}
+result_pois_two_sided$data.name
+```
+
+correctness check with original `poission.test` function:
+
+```{r}
+for (i in 1:5) {
+  x = sample(1:1000000, 1)
+  T = sample(1000:9999999, 1)
+  x2 = sample(1:1000000, 1)
+  T2 = sample(1000:9999999, 1)
+  alt = sample(c("two.sided", "less", "greater"), 1)
+  ci = runif(1, 0, 1)
+  print(all.equal(pois.test(x, T, alternative = alt, conf.level = ci), poisson.test(x, T, alternative = alt, conf.level = ci)))
+  print(all.equal(pois.test(c(x, x2), c(T, T2), alternative = alt, conf.level = ci), poisson.test(c(x, x2), c(T, T2), alternative = alt, conf.level = ci)))
+}
+```
+
+bench mark efficiency check with original `poission.test` function:
+
+```{r fig1, fig.height = 3, fig.width = 7}
+x = sample(1:1000000, 1)
+T = sample(1000:9999999, 1)
+x2 = sample(1:1000000, 1)
+T2 = sample(1000:9999999, 1)
+alt = sample(c("two.sided", "less", "greater"), 1)
+ci = runif(1, 0, 1)
+mm1 = bench::mark(pois.test(x, T, alternative = alt, conf.level = ci), 
+                  poisson.test(x, T, alternative = alt, conf.level = ci))
+mm2 = bench::mark(pois.test(c(x, x2), c(T, T2), alternative = alt, conf.level = ci), 
+                  poisson.test(c(x, x2), c(T, T2), alternative = alt, conf.level = ci))
+print(rbind(mm1, mm2))
+```
+
