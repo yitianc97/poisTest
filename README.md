@@ -1,4 +1,4 @@
-# poisTest
+# pois.exact.test
 <!-- badges: start -->
   
 [![Travis build status](https://travis-ci.com/yitianc97/poisTest.svg?branch=main)](https://travis-ci.com/yitianc97/poisTest)

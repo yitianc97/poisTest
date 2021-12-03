@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(pois.exact.test)
 ```
 
+
 ## 'pois.test'
 
 Simple example on how to use the function `pois.test`:
